@@ -5,7 +5,6 @@
 */
 
 import java.util.NoSuchElementException;
-import java.util.*;
 
 public class LinkedList<T> {
     private class Node {
