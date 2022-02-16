@@ -5,6 +5,7 @@
 */
 
 import java.util.NoSuchElementException;
+import java.util.*;
 
 public class LinkedList<T> {
     private class Node {
@@ -128,7 +129,7 @@ public class LinkedList<T> {
      */
     public T getIterator() throws NullPointerException {
         if (this.iterator == null) {
-            throw new NoSuchElementException("getIterator(): Cannot return null iterator.");
+            throw new NullPointerException("getIterator(): Cannot return null iterator.");
         }
 
         return this.iterator.data;
@@ -494,14 +495,12 @@ public class LinkedList<T> {
         if (offEnd()) {
             throw new NullPointerException("getIteratorIndex(): iterator Off the END!");
         }
-
-        int index = 0;
-
-        for (Node temp = this.first; temp.equals(this.iterator); temp = temp.next) {
-            index++;
+        int i = 0;
+        for (Node temp = this.first; !temp.equals(this.iterator); temp = temp.next) {
+            i++;
         }
 
-        return index;
+        return i;
     }
 
     /**
@@ -513,7 +512,25 @@ public class LinkedList<T> {
      *         the data is not contained in the LinkedList
      */
     public int findIndex(T data) {
-        return -1;
+        int i = 0;
+        boolean found = false;
+        Node temp = this.first;
+        while (temp != null) {
+            if (temp.data.equals(data)) {
+                found = true;
+                break;
+            }
+            temp = temp.next;
+            i++;
+        }
+
+        // if (found) {
+        // return i;
+        // } else {
+        // return -1;
+        // }
+
+        return found ? i : -1;
     }
 
     /**
@@ -522,12 +539,18 @@ public class LinkedList<T> {
      * 
      * @param index the index at which to place the
      *              iterator.
-     * @precondition <fill in here>
-     * @throws NullPointerException when the precondition is
-     *                              violated
+     * @precondition index < size
+     * @throws NullPointerException when the precondition is violated
+     *
      */
     public void advanceIteratorToIndex(int index) throws NullPointerException {
-
+        if (index > this.length - 1) {
+            throw new NullPointerException("BRUH");
+        }
+        this.iterator = this.first;
+        for (int i = 0; i < index; i++) {
+            iterator = iterator.next;
+        }
     }
 
 }
