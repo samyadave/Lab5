@@ -140,6 +140,9 @@ public class LinkedList<T> {
      * @return the length of the LinkedList from 0 to n
      */
     public int getLength() {
+        if (this.length < 0) {
+            this.length = 0;
+        }
         return this.length;
     }
 
@@ -289,10 +292,10 @@ public class LinkedList<T> {
         } else {
             this.iterator.prev.next = this.iterator.next;
             this.iterator.next.prev = this.iterator.prev;
+            length--;
         }
         this.iterator = null;
 
-        length--;
     }
 
     /**
@@ -523,12 +526,6 @@ public class LinkedList<T> {
             i++;
         }
 
-        // if (found) {
-        // return i;
-        // } else {
-        // return -1;
-        // }
-
         return found ? i : -1;
     }
 
@@ -538,14 +535,15 @@ public class LinkedList<T> {
      * 
      * @param index the index at which to place the
      *              iterator.
-     * @precondition index < size
+     * @precondition iterator != null and index < size
      * @throws NullPointerException when the precondition is violated
      *
      */
     public void advanceIteratorToIndex(int index) throws NullPointerException {
-        if (index > this.length - 1) {
+        if (iterator == null || index > this.length) {
             throw new NullPointerException("BRUH");
         }
+
         this.iterator = this.first;
         for (int i = 0; i < index; i++) {
             iterator = iterator.next;
