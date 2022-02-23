@@ -540,7 +540,7 @@ public class LinkedList<T> {
      *
      */
     public void advanceIteratorToIndex(int index) throws NullPointerException {
-        if (iterator == null || index > this.length) {
+        if (iterator == null || index >= this.length) {
             throw new NullPointerException("BRUH");
         }
 

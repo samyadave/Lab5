@@ -53,7 +53,7 @@ class LinkedListTest {
         sList.advanceIteratorToIndex(2);
         assertEquals(".", sList.getIterator());
         assertThrows(NullPointerException.class, () -> {
-            sList.advanceIteratorToIndex(3);
+            sList.advanceIteratorToIndex(4);
         });
         sList.positionIterator();
         sList.advanceIteratorToIndex(3);

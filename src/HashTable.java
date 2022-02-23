@@ -1,8 +1,8 @@
 
 /**
 * HashTable.java
-* @author
-* @author
+* @author Sam Yadav
+* @author Sol Valdimarsdottir
 * CIS 22C, Lab 5
 */
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class HashTable<T> {
             this.Table.add(new LinkedList<>());
         }
 
-    }
+    } // O(n)
 
     /**
      * Constructor for HashTable class
@@ -67,7 +67,7 @@ public class HashTable<T> {
      */
     private int hash(T t) {
         return Math.abs(t.hashCode()) % Table.size();
-    }
+    } // O(n)
 
     /**
      * Counts the number of elements at this index
@@ -85,7 +85,7 @@ public class HashTable<T> {
 
         return this.Table.get(index).getLength(); // お茶を飲みますか？
         // Return's the length of the table's index (all LinkedList functions)
-    }// バババカ
+    }// バババカ O(1)
 
     /**
      * Determines total number of elements in the Table
@@ -94,7 +94,7 @@ public class HashTable<T> {
      */
     public int getNumElements() {
         return this.numElements;
-    }
+    } // O(1)
 
     /**
      * Accesses a specified element in the Table
@@ -118,7 +118,7 @@ public class HashTable<T> {
             return this.hash(t); // the bucket's index value is represented by this.hash(t)
         }
         return -1;
-    }
+    } // best case O(1), average case O(1), worst case O(n)
 
     /**
      * Determines whether a specified element is in
@@ -142,7 +142,7 @@ public class HashTable<T> {
             return true; // the bucket's index value is represented by this.hash(t)
         }
         return false;
-    }
+    } // best case O(1), average case O(1), worst case O(n)
 
     /** Mutators */
 
@@ -160,12 +160,10 @@ public class HashTable<T> {
         if (t == null) {
             throw new NullPointerException("BRUH");
         }
-        System.out.println("Bucket " + this.hash(t) + " length: " + Table.get(hash(t)).getLength());
+
         Table.get(hash(t)).addLast(t);
-        System.out.println("Bucket " + this.hash(t) + " length: " + Table.get(hash(t)).getLength());
-        System.out.println(t.toString() + ": " + hash(t));
         this.numElements++;
-    }
+    } // O(1)
 
     /**
      * Removes the given element from the Table
@@ -186,13 +184,12 @@ public class HashTable<T> {
             LinkedList<T> bucket = Table.get(this.hash(t));
             bucket.positionIterator();
             bucket.advanceIteratorToIndex(bucket.findIndex(t));
-            System.out.println("Bucket " + this.hash(t) + " length: " + bucket.getLength());
             bucket.removeIterator();
-            System.out.println("Bucket " + this.hash(t) + " length: " + bucket.getLength());
             numElements--;
+
             return true;
         }
-    }
+    } // O(1)
 
     /**
      * Resets the hash table back to the
@@ -206,7 +203,7 @@ public class HashTable<T> {
             this.Table.add(new LinkedList<>());
         }
         numElements = 0;
-    }
+    } // O(n)
 
     /** Additional Methods */
 
@@ -217,7 +214,7 @@ public class HashTable<T> {
      */
     public double getLoadFactor() {
         return (double) numElements / (double) Table.size();
-    }
+    } // O(1)
 
     /**
      * Creates a String of all elements at a given bucket
@@ -228,7 +225,7 @@ public class HashTable<T> {
      */
     public String bucketToString(int bucket) {
         return Table.get(bucket).toString();
-    }
+    } // worst case O(n), best/average O(1)
 
     /**
      * Creates a String of the bucket number
@@ -242,18 +239,17 @@ public class HashTable<T> {
      *         at each bucket
      */
     public String rowToString() {
-
-        String whatever = "";
+        String 何でも = "";
         for (int index = 0; index < this.Table.size(); index++) {
-            whatever += "Bucket " + index + ": ";
+            何でも += "Bucket " + index + ": ";
             if (Table.get(index).getLength() != 0) {
-                whatever += Table.get(index).getFirst().toString() + "\n";
+                何でも += Table.get(index).getFirst().toString() + "\n";
             } else {
-                whatever += "empty\n";
+                何でも += "empty\n";
             }
         }
-        return whatever;
-    }
+        return 何でも;
+    } // O(n)
 
     /**
      * Starting at the 0th bucket, and continuing
@@ -264,13 +260,12 @@ public class HashTable<T> {
      */
     @Override
     public String toString() {
-
-        String whatever = "";
+        String 何でも = "";
         for (int index = 0; index < this.Table.size(); index++) {
             if (Table.get(index).getLength() != 0) {
-                whatever += Table.get(index).toString();
+                何でも += Table.get(index).toString();
             }
         }
-        return whatever + "\n";
-    }
+        return 何でも + "\n";
+    } // O(n)
 }
